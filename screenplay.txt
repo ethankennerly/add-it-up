@@ -1,0 +1,189 @@
+INT. APARTMENT, OAKLAND, SATURDAY APRIL 9, 7 PM
+
+Jennifer Russ sits in front of PC laptop.
+Zoomed in on 64x64 pixels.
+Screen has room for 6 lines of text.
+Row has room for 7 letters in pixelated monospace font.
+Screen shows:
+
+	ADD IT UP
+	
+	
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+Jennifer Russ presses Enter key.
+
+	        3
+	        2
+	TYPE "5"
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+Jennifer types 5 and presses Enter key.
+
+	  PRESS
+	ENTER OR
+	SPACE KEY
+	POINTS +5
+	SCORE
+	       =5
+
+
+	     2003
+	     1002
+	TYPE 3000
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+	        3
+	     3002
+	TYPE 5
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+Jennifer presses Enter key.
+
+	IF WRONG:
+	- POINTS
+
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+Jennifer presses Enter key.
+
+	YOU CAN
+	ADD TWO
+	OR MORE
+	NUMBERS
+
+Each enter create -1.
+
+	EACH 
+	ENTRY
+	CREATES -1
+	NUMBERS
+
+Jennifer presses Enter key.
+
+	IF WRONG:
+	- POINTS
+
+	  PRESS
+	ENTER OR
+	SPACE KEY
+
+Jennifer presses Enter key.
+
+	EACH SEC
+	-1 POINT
+	  PRESS
+	ENTER OR
+	SPACE KEY
+	TO START
+
+Jennifer presses Enter key.
+
+	        4
+	        5
+
+	SCORE
+	      100
+
+Jennifer types 9 Enter.
+
+	         
+	         
+		 
+	SCORE
+	      109
+
+
+
+	       12
+	      213 
+		 
+	SCORE
+	      109
+
+Jennifer types 225 Enter.
+
+	         
+	SCORE
+	      334
+
+Jennifer types Enter or two seconds pass.
+
+Jennifer plays quickly for a while.
+
+Advanced trial
+
+	      4305
+	     56943
+	    304056
+	   3059624
+	SCORE
+	   1000000
+
+Jennifer types 18 Enter in 3 seconds.
+
+	      4310
+	     56940
+	    304050
+	   3059628
+	SCORE
+	    999997
+
+Jennifer types 12 Enter in 4 seconds.
+
+	      4310
+	     56940
+	    304050
+	   3059628
+	WRONG -100
+	    999893
+
+Jennifer types 120 Enter in 4 seconds.
+
+	      4300
+	     56900
+	    304100
+	   3059628
+	SCORE:
+	    999889
+
+When Jennifer presses a number key the bottom text is replaced with number to enter.
+
+Jennifer types 10
+
+	      4300
+	     56900
+	    304100
+	   3059628
+	ENTER:
+	        10
+
+Jennifer types 0000
+
+	      4300
+	     56900
+	    304100
+	   3059628
+	ENTER:
+	    100000
+
+Jennifer presses Enter key.
+
+	      4300
+	    106900
+	    304100
+	   3009628
+	SCORE:
+	    999879
+
+

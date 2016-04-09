@@ -1,0 +1,58 @@
+FEATURES
+
+TODO
+	Number Cruncher:
+	4
+	8
+	1
+
+	Keypad any two.
+	Or all three.
+	Finish when all numbers combined.
+	Delete the column and more numbers drop in their place.
+	Score equals your sum.
+	Start with few numbers and easy sums.
+	Bottom row.  When all digits below, win.  
+	add total to score.
+	each second the score counts down one.
+	score at top.
+	or score at bottom after the row score:
+		_____
+		_____
+		_____
+		SCORE
+		__100
+
+		NUMBR
+		CRNCH
+		PRESS
+		ENTER
+		  345
+
+		ADDIT
+
+	every 10 seconds -10 drops down.
+	
+	keypad in 64x64:
+		NUMBR789
+		CRNCH456
+		ENTER234
+		SCORE01E
+		__345
+
+	what match-3 has is the input is the output:
+		the object tapped is manipulated directly.
+	with keypad the numbers are not manipulated directly.
+	another key is pressed.
+	after each input, -10 drops in.
+	if a digit column fills up, then the negative number spills to the next digit over.
+	Type a number.  Match.
+	Type a mistake.  Negative numbers appear in red.  These will subtract from score.  Also add them (or sub them).
+	Combo bonus for each digit crunched:  Shift by one digit.  Or digits are placed side-by-side to become the score.
+		841
+		148
+	Fit in 64x64:  At least 8x8 for digit.  8x8 grid.
+	Score review:  show digits.
+	Speed bonus. 
+	Add up the speed bonus.
+	Tetris.  Numbers keep falling.
