@@ -1,3 +1,4 @@
+using UnityEngine;  // Mathf
 using System;  // Array
 using System.Collections.Generic;  // List
 
@@ -14,8 +15,10 @@ public class Model
 	private string footer = "";
 	private string problem = "";
 	private int lineMax = 9;
+	private int problemLineMax = 4;
+	private int problemLineMin = 2;
 	private string state = "";
-	private int score = 100;
+	private int score = 10;
 	private int sum = 0;
 	private List<int> remains = new List<int>();
 
@@ -27,11 +30,23 @@ public class Model
 	private void Populate()
 	{
 		remains.Clear();
-		sum = 0;
-		remains.Add(3);
-		sum += 3;
-		remains.Add(2);
-		sum += 2;
+		int min = score / 5;
+		int range = score - min;
+		sum = (int) (Deck.Random() * range + min);
+		int problemLineCount = (int) Mathf.Floor(Mathf.Pow(score, 0.1f));
+		problemLineCount = Mathf.Max(problemLineMin, Mathf.Min(problemLineCount, problemLineMax));
+		int step;
+		int remaining = sum;
+		for (int index = 0; index < problemLineCount - 1; index++) {
+			min = remaining / 5;
+			min = Mathf.Max(1, min);
+			range = (int) (0.5f * remaining - min);
+			step = (int) (Deck.Random() * range + min);
+			remaining -= step;
+			remains.Add(step);
+		}
+		remains.Add(remaining);
+		Deck.ShuffleList(remains);
 	}
 
 	private void SetText(string[] address, string text)
@@ -87,9 +102,8 @@ public class Model
 
 	private string FormatProblem()
 	{
-		int lineCount = 6;
 		string problem = "";
-		for (int index = lineCount - 1; 0 <= index; index--) {
+		for (int index = problemLineMax - 1; 0 <= index; index--) {
 			if (index < remains.Count) {
 				problem += remains[index];
 			}
@@ -102,12 +116,8 @@ public class Model
 	{
 		string formatted;
 		problem = FormatProblem();
-		if ("" == entry) {
-			footer = "SCORE\n" + score;
-		}
-		else {
-			footer = "ENTER\n" + entry;
-		}
+		footer = "ENTER\n" + entry
+			+ "\nSCORE\n" + score;
 		formatted = problem + footer;
 		return formatted;
 	}
@@ -128,7 +138,7 @@ public class Model
 		var amount = Toolkit.ParseInt(entry);
 		if (sum == amount) {
 			score += sum;
-			remains.Clear();
+			Populate();
 		}
 		else {
 			score -= 10;

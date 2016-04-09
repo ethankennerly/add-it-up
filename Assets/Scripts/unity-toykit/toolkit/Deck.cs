@@ -1,18 +1,38 @@
 using UnityEngine;  // Mathf
 using System;  // Random
+using System.Collections.Generic;  // List
 
 public class Deck
 {
 	private static System.Random rng = new System.Random();
 
+	public static float Random()
+	{
+		return (float) rng.NextDouble();
+	}
+
 	/**
 	 * Unity Random includes 1.0, which would be out of range.
 	 */
-	public static void Shuffle<T>(T[] deck)
+	public static void ShuffleArray<T>(T[] deck)
 	{
 		for (int index = deck.Length - 1; 1 <= index; index--)
 		{
-			int r = (int) Mathf.Floor((float) (rng.NextDouble() * (index + 1)));
+			int r = (int) Mathf.Floor(Random() * (index + 1));
+			T swap = deck[index];
+			deck[index] = deck[r];
+			deck[r] = swap;
+		}
+	}
+
+	/**
+	 * Unity Random includes 1.0, which would be out of range.
+	 */
+	public static void ShuffleList<T>(List<T> deck)
+	{
+		for (int index = deck.Count - 1; 1 <= index; index--)
+		{
+			int r = (int) Mathf.Floor(Random() * (index + 1));
 			T swap = deck[index];
 			deck[index] = deck[r];
 			deck[r] = swap;
@@ -32,7 +52,7 @@ public class Deck
 		{
 			cards[index] = originals[index % original];
 		}
-		Shuffle(cards);
+		ShuffleArray(cards);
 		index = -1;
 	}
 
@@ -40,7 +60,7 @@ public class Deck
 	{
 		index++;
 		if (length <= index) {
-			Shuffle(cards);
+			ShuffleArray(cards);
 			index = 0;
 		}
 		return cards[index];
