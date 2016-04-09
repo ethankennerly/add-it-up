@@ -23,6 +23,7 @@ public class Controller
 	public void Update()
 	{
 		UpdateInput();
+		model.Update();
 		ControllerUtil.SetStates(model.view.news, view.graph);
 		ControllerUtil.PlaySounds(model.view.soundNews);
 	}

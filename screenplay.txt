@@ -2,8 +2,8 @@ INT. APARTMENT, OAKLAND, SATURDAY APRIL 9, 7 PM
 
 Jennifer Russ sits in front of PC laptop.
 Zoomed in on 64x64 pixels.
-Screen has room for 6 lines of text.
-Row has room for 7 letters in pixelated monospace font.
+Screen has room for 8 lines of text.
+Row has room for 9 letters in pixelated monospace font.
 Screen shows:
 
 	ADD IT UP

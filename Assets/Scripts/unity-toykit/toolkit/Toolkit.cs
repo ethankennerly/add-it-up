@@ -20,7 +20,7 @@ public class Toolkit
 		return tileIndex;
 	}
 
-	private static string NormalizeLines(string text)
+	public static string NormalizeLines(string text)
 	{
 		return text.Replace("\r\n", "\n").Replace("\r", "\n");
 	}
