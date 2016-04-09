@@ -15,12 +15,23 @@ public class Model
 	private string problem = "";
 	private int lineMax = 9;
 	private string state = "";
-	private int score = 0;
+	private int score = 100;
+	private int sum = 0;
 	private List<int> remains = new List<int>();
 
 	public void Start()
 	{
 		state = "start";
+	}
+
+	private void Populate()
+	{
+		remains.Clear();
+		sum = 0;
+		remains.Add(3);
+		sum += 3;
+		remains.Add(2);
+		sum += 2;
 	}
 
 	private void SetText(string[] address, string text)
@@ -112,13 +123,27 @@ public class Model
 		SetText(text, page);
 	}
 
+	private void Evaluate()
+	{
+		var amount = Toolkit.ParseInt(entry);
+		if (sum == amount) {
+			score += sum;
+			remains.Clear();
+		}
+		else {
+			score -= 10;
+		}
+	}
+
 	private void Submit()
 	{
-		entry = "";
 		if ("start" == state) {
 			state = "play";
-			remains.Add(3);
-			remains.Add(2);
+			Populate();
 		}
+		else if ("" != entry) {
+			Evaluate();
+		}
+		entry = "";
 	}
 }

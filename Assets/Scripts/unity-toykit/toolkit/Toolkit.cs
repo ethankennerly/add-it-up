@@ -14,6 +14,11 @@ public class Toolkit
 		Debug.Log(message);
 	}
 
+	public static int ParseInt(string digits)
+	{
+		return int.Parse(digits);
+	}
+
 	public static int ParseIndex(string tileName)
 	{
 		int tileIndex = int.Parse(tileName.Split('_')[1]);
