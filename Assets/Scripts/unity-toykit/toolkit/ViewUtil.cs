@@ -96,4 +96,15 @@ public class ViewUtil
 	{
 		audio.PlayOneShot(sounds[name]);
 	}
+
+	public static bool GetKeyDown(string keyName)
+	{
+		return Input.GetKeyDown(keyName);
+	}
+
+	public static string GetInputString()
+	{
+		return Input.inputString;
+	}
+
 }

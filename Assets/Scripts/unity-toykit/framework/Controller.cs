@@ -11,8 +11,18 @@ public class Controller
 		ControllerUtil.SetupButtons(this, model.view.buttons);
 	}
 
+	public void UpdateInput()
+	{
+		string input = ViewUtil.GetInputString();
+		input = Toolkit.NormalizeLines(input);
+		if (null != input && "" != input) {
+			model.InputString(input);
+		}
+	}
+
 	public void Update()
 	{
+		UpdateInput();
 		ControllerUtil.SetStates(model.view.news, view.graph);
 		ControllerUtil.PlaySounds(model.view.soundNews);
 	}

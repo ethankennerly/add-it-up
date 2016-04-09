@@ -22,7 +22,7 @@ public class Toolkit
 
 	private static string NormalizeLines(string text)
 	{
-		return text.Replace("\r\n", "\n");
+		return text.Replace("\r\n", "\n").Replace("\r", "\n");
 	}
 
 	/**
