@@ -1,4 +1,5 @@
 using System;  // Array
+using System.Collections.Generic;  // List
 
 public class Model
 {
@@ -15,6 +16,7 @@ public class Model
 	private int lineMax = 9;
 	private string state = "";
 	private int score = 0;
+	private List<int> remains = new List<int>();
 
 	public void Start()
 	{
@@ -72,10 +74,23 @@ public class Model
 		}
 	}
 
+	private string FormatProblem()
+	{
+		int lineCount = 6;
+		string problem = "";
+		for (int index = lineCount - 1; 0 <= index; index--) {
+			if (index < remains.Count) {
+				problem += remains[index];
+			}
+			problem += "\n";
+		}
+		return problem;
+	}
+
 	private string Format()
 	{
 		string formatted;
-		problem = "\n\n\n\n\n\n";
+		problem = FormatProblem();
 		if ("" == entry) {
 			footer = "SCORE\n" + score;
 		}
@@ -102,6 +117,8 @@ public class Model
 		entry = "";
 		if ("start" == state) {
 			state = "play";
+			remains.Add(3);
+			remains.Add(2);
 		}
 	}
 }
