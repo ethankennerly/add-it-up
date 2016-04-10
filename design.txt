@@ -1,6 +1,10 @@
 FEATURES
+	Add numbers
 
 TODO
+	Test case:  2016-04-09 Jennifer Russ:
+		Not 4 numbers so soon.
+		Larger loss for guess.
 	Number Cruncher:
 	4
 	8

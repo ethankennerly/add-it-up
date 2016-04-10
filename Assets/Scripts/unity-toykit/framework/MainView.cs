@@ -11,6 +11,6 @@ public class MainView : MonoBehaviour
 	
 	void Update ()
 	{
-		controller.Update();
+		controller.Update(Time.deltaTime);
 	}
 }

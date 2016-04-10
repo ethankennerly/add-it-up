@@ -20,10 +20,10 @@ public class Controller
 		}
 	}
 
-	public void Update()
+	public void Update(float deltaTime)
 	{
 		UpdateInput();
-		model.Update();
+		model.Update(deltaTime);
 		ControllerUtil.SetStates(model.view.news, view.graph);
 		ControllerUtil.PlaySounds(model.view.soundNews);
 	}

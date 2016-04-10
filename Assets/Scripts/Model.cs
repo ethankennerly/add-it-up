@@ -5,16 +5,18 @@ using System.Collections.Generic;  // List
 public class Model
 {
 	public ViewModel view = new ViewModel();
-	public bool isVerbose = true;
+	public bool isVerbose = false;
 	private string[] text = new string[]{"Canvas", "Text"};
 	private string[] digits = new string[]{
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 	};
-	private string entry = "";
+	public string entry = "";
 	private string page = "";
 	private string footer = "";
 	private string problem = "";
 	private int lineMax = 9;
+	private int trialMax = 20;
+	private int trialCount = 0;
 	private int problemLineMax = 4;
 	private int problemLineMin = 2;
 	private string state = "";
@@ -27,13 +29,34 @@ public class Model
 		state = "start";
 	}
 
+	public List<int> GetRemains()
+	{
+		return remains;
+	}
+
+	public void SetRemains(List<int> numbers)
+	{
+		remains = numbers;
+		sum = 0;
+		for (int index = 0; index < remains.Count; index++) {
+			sum += remains[index];
+		}
+	}
+
+	public int GetSum()
+	{
+		return sum;
+	}
+
 	private void Populate()
 	{
 		remains.Clear();
 		int min = score / 5;
 		int range = score - min;
 		sum = (int) (Deck.Random() * range + min);
-		int problemLineCount = (int) Mathf.Floor(Mathf.Pow(score, 0.1f));
+		float problemLinePower = 0.1f;
+					// 0.25f;
+		int problemLineCount = (int) Mathf.Floor(Mathf.Pow(score, problemLinePower));
 		problemLineCount = Mathf.Max(problemLineMin, Mathf.Min(problemLineCount, problemLineMax));
 		int step;
 		int remaining = sum;
@@ -122,10 +145,29 @@ public class Model
 		return formatted;
 	}
 
-	public void Update()
+	private float timeSincePenalty = 0.0f;
+	private float penaltyInterval = 1.0f;
+
+	private void UpdatePenalty(float deltaTime, bool isActive)
 	{
+		if (isActive) {
+			timeSincePenalty += deltaTime;
+			if (penaltyInterval <= timeSincePenalty) {
+				timeSincePenalty -= penaltyInterval;
+				score = (int) (score * 0.9f);
+			}
+		}
+		else {
+			timeSincePenalty = 0.0f;
+		}
+	}
+
+	public void Update(float deltaTime)
+	{
+		UpdatePenalty(deltaTime, "play" == state);
 		if ("start" == state) {
-			page = "ADD1TUP\n\n\n\n\nPRESS\nENTEROR\nSPACEKEY";
+			page = "ADD1TUP\n\nPRESS\nENTEROR\nSPACEKEY"
+				+ "\n\nSCORE\n" + score;
 		}
 		else {
 			page = Format();
@@ -133,23 +175,40 @@ public class Model
 		SetText(text, page);
 	}
 
+	public bool IsSolveSomeDigits()
+	{
+		return false;
+	}
+
 	private void Evaluate()
 	{
 		var amount = Toolkit.ParseInt(entry);
 		if (sum == amount) {
 			score += sum;
-			Populate();
+			Next();
+		}
+		else if (!IsSolveSomeDigits()) {
+			score = (int) (score * 0.9f);
+		}
+	}
+
+	private void Next()
+	{
+		if (trialMax <= trialCount) {
+			trialCount = 0;
+			state = "start";
 		}
 		else {
-			score -= 10;
+			Populate();
 		}
+		trialCount++;
 	}
 
 	private void Submit()
 	{
 		if ("start" == state) {
 			state = "play";
-			Populate();
+			Next();
 		}
 		else if ("" != entry) {
 			Evaluate();
