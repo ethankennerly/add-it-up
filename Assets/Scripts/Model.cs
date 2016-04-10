@@ -20,8 +20,11 @@ public class Model
 	private int problemLineMax = 4;
 	private int problemLineMin = 2;
 	private string state = "";
+	private int sessionCount = 0;
 	private int score = 10;
+	private int scoreMax = 999999999;
 	private int sum = 0;
+	private int amount = 0;
 	private List<int> remains = new List<int>();
 
 	public void Start()
@@ -52,16 +55,19 @@ public class Model
 	{
 		remains.Clear();
 		int min = score / 5;
-		int range = score - min;
+		min = Mathf.Max(2, min);
+		int range = (int) (0.5f * score) - min;
 		sum = (int) (Deck.Random() * range + min);
-		float problemLinePower = 0.1f;
+		float problemLinePower = // 0.1f;
+					// 0.125f;
+					0.15f;
 					// 0.25f;
 		int problemLineCount = (int) Mathf.Floor(Mathf.Pow(score, problemLinePower));
 		problemLineCount = Mathf.Max(problemLineMin, Mathf.Min(problemLineCount, problemLineMax));
 		int step;
 		int remaining = sum;
 		for (int index = 0; index < problemLineCount - 1; index++) {
-			min = remaining / 5;
+			min = remaining / (index + 2);
 			min = Mathf.Max(1, min);
 			range = (int) (0.5f * remaining - min);
 			step = (int) (Deck.Random() * range + min);
@@ -126,9 +132,11 @@ public class Model
 	private string FormatProblem()
 	{
 		string problem = "";
-		for (int index = problemLineMax - 1; 0 <= index; index--) {
-			if (index < remains.Count) {
-				problem += remains[index];
+		int remainsStart = problemLineMax - remains.Count;
+		for (int index = 0; index < problemLineMax; index++) {
+			int remainsIndex = index - remainsStart;
+			if (0 <= remainsIndex) {
+				problem += remains[remainsIndex];
 			}
 			problem += "\n";
 		}
@@ -166,9 +174,23 @@ public class Model
 	{
 		UpdatePenalty(deltaTime, "play" == state);
 		if ("start" == state) {
-			page = "ADD1TUP\nPRESS\nENTEROR\nSPACEKEY"
-				+ "\nTODO\n" + trialMax
-				+ "\nSCORE\n" + score;
+			int sessionLoop = 3;
+			int sessionIndex = sessionCount % sessionLoop;
+			if (0 == sessionIndex) {
+				page = "ADD1TUP\nPRESS\nENTEROR\nSPACEKEY"
+					+ "\nFOR" + trialMax + "MORE\n"
+					+ "\nSCORE\n" + score;
+			}
+			if (1 == sessionIndex) {
+				page = "ADD1TUP\nPRESS\nSPACEKEY\nORENTER"
+					+ "\nFOR" + trialMax + "MORE\nGOODWORK"
+					+ "\nSCORE\n" + score;
+			}
+			else {
+				page = "ADD1TUP\n\nWOW"
+					+ "\nPRESS\nENTER\n"
+					+ "\nSCORE\n" + score;
+			}
 		}
 		else {
 			page = Format();
@@ -176,26 +198,66 @@ public class Model
 		SetText(text, page);
 	}
 
-	public bool IsSolveSomeDigits()
+	// Return if any combination of 2 or more digits.
+	// If so, then replace those digits with the amount.
+	// If no room:  Replace zeroes.
+	// If no more zeroes, add to lowest digit.
+	public bool IsSolveSomeDigits(int amount)
 	{
+		if (0 == amount) {
+			return false;
+		}
+		float log10 = Mathf.Log10(amount);
+		int digitCount = (int) (log10 + 1);
+		int remainsCount = remains.Count;
+		int sum = 0;
+		for (int digit = 1; digit <= digitCount; digit++) {
+			sum = 0;
+			int multiple = (int) Mathf.Pow(10, digit);
+			for (int row = 0; row < remainsCount; row++) {
+				int remain = remains[row];
+				int part = remain % multiple;
+				sum += part;
+				if (sum == amount) {
+					for (int rowReplace = 0; rowReplace <= row; rowReplace++) {
+						remain = remains[rowReplace];
+						part = remain % multiple;
+						remains[rowReplace] -= part;
+					}
+					for (int replaceDigit = 1; replaceDigit <= digitCount; replaceDigit++) {
+						multiple = (int) Mathf.Pow(10, replaceDigit);
+						part = amount % multiple;
+						amount -= part;
+						remains[remainsCount - 1] += part;
+					}
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
 	private void Evaluate()
 	{
-		var amount = Toolkit.ParseInt(entry);
+		amount = Toolkit.ParseInt(entry);
 		if (sum == amount) {
 			score += sum;
 			Next();
 		}
-		else if (!IsSolveSomeDigits()) {
-			score = (int) (score * 0.9f);
+		else if (!IsSolveSomeDigits(amount)) {
+			score = (int) (score * 0.75f);
 		}
 	}
 
 	private void Next()
 	{
 		if (trialMax <= trialCount) {
+			sessionCount++;
+			trialCount = 0;
+			state = "start";
+		}
+		else if (scoreMax <= score) {
+			score = scoreMax;
 			trialCount = 0;
 			state = "start";
 		}

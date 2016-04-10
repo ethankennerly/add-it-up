@@ -23,7 +23,26 @@ internal class TestModel
 	}
 
 	[Test]
-	public void IsSolveSomeDigits()
+	public void IsSolveSomeDigitsShort()
+	{
+		Model model = new Model();
+		List<int> remains = new List<int>(){
+		        15,
+		        24
+		};
+		model.SetRemains(remains);
+		Assert.AreEqual(false, model.IsSolveSomeDigits(0));
+		Assert.AreEqual(true, model.IsSolveSomeDigits(9));
+		List<int> expects = new List<int>(){
+		        10,
+		        29
+		};
+		CollectionAssert.AreEqual(expects,
+			model.GetRemains());
+	}
+
+	[Test]
+	public void IsSolveSomeDigitsLong()
 	{
 		Model model = new Model();
 		List<int> remains = new List<int>(){
@@ -33,13 +52,13 @@ internal class TestModel
 		   3059624
 		};
 		model.SetRemains(remains);
-		model.entry = "18";
-		Assert.AreEqual(true, model.IsSolveSomeDigits());
+		Assert.AreEqual(false, model.IsSolveSomeDigits(0));
+		Assert.AreEqual(true, model.IsSolveSomeDigits(18));
 		List<int> expects = new List<int>(){
-		      4310,
+		      4300,
 		     56940,
 		    304050,
-		   3059628
+		   3059638
 		};
 		CollectionAssert.AreEqual(expects,
 			model.GetRemains());
