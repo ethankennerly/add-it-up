@@ -4,7 +4,7 @@ using System.Collections.Generic;  // List
 
 public class Model
 {
-	public ViewModel view = new ViewModel();
+	public ViewModel view;
 	public bool isVerbose = false;
 	private string[] text = new string[]{"Canvas", "Text"};
 	private string[] digits = new string[]{
@@ -30,6 +30,9 @@ public class Model
 	public void Start()
 	{
 		state = "start";
+		view.graph["Canvas"] = new Dictionary<string, object>(){
+			{"Text", null}
+		};
 	}
 
 	public List<int> GetRemains()
@@ -81,27 +84,10 @@ public class Model
 		Deck.ShuffleList(remains);
 	}
 
-	private void SetText(string[] address, string text)
-	{
-		ControllerUtil.SetNews(view.news, address, text, "text");
-	}
-
-	private void SetState(string[] address, string state)
-	{
-		ControllerUtil.SetNews(view.news, address, state);
-	}
-
-	public void OnMouseDown(string name)
-	{
-		if (isVerbose) {
-			Toolkit.Log("OnMouseDown: " + name);
-		}
-	}
-
 	public void InputString(string input)
 	{
-		if (isVerbose) {
-			Toolkit.Log("InputString: " + input);
+		if ("" == input) {
+			return;
 		}
 		if (" " == input || "\n" == input) {
 			Submit();
@@ -124,7 +110,7 @@ public class Model
 		}
 	}
 
-	public void RemoveLastDigit()
+	private void RemoveLastDigit()
 	{
 		if (1 <= entry.Length) {
 			entry = entry.Substring(0, entry.Length - 1);
@@ -176,6 +162,7 @@ public class Model
 
 	public void Update(float deltaTime)
 	{
+		InputString(view.inputString);
 		UpdatePenalty(deltaTime, "play" == state);
 		if ("start" == state) {
 			int sessionLoop = 3;
@@ -199,7 +186,7 @@ public class Model
 		else {
 			page = Format();
 		}
-		SetText(text, page);
+		view.SetText(text, page);
 	}
 
 	// Return if any combination of 2 or more digits.

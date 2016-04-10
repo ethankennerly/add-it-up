@@ -1,35 +1,40 @@
 public class Controller
 {
-	public Model model = new Model();
+	public ViewModel viewModel = new ViewModel();
 	public View view = new View();
+
+	public void SetModel(Model model)
+	{
+		viewModel.model = model;
+	}
 
 	public void Start()
 	{
-		model.Start();
-		view.graph = ControllerUtil.FindGraphByName(model.view.graph, model.view.main);
-		ViewUtil.SetupAudio(model.view.main, model.view.sounds);
-		ControllerUtil.SetupButtons(this, model.view.buttons);
+		viewModel.Start();
+		view.graph = ControllerUtil.FindGraphByName(viewModel.graph, viewModel.main);
+		ViewUtil.SetupAudio(viewModel.main, viewModel.sounds);
+		ControllerUtil.SetupButtons(this, viewModel.buttons);
 	}
 
-	public void UpdateInput()
+	private void UpdateInput()
 	{
 		string input = ViewUtil.GetInputString();
 		input = Toolkit.NormalizeLines(input);
 		if (null != input && "" != input) {
-			model.InputString(input);
+			viewModel.InputString(input);
 		}
 	}
 
 	public void Update(float deltaTime)
 	{
 		UpdateInput();
-		model.Update(deltaTime);
-		ControllerUtil.SetStates(model.view.news, view.graph);
-		ControllerUtil.PlaySounds(model.view.soundNews);
+		viewModel.Update(deltaTime);
+		ControllerUtil.SetStates(viewModel.news, view.graph);
+		ControllerUtil.PlaySounds(viewModel.soundNews);
 	}
 
 	public void OnMouseDown(string name)
 	{
-		model.OnMouseDown(name);
+		viewModel.OnMouseDown(name);
 	}
 }
