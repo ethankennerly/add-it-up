@@ -21,7 +21,7 @@ public class Model
 	private int problemLineMin = 2;
 	private string state = "";
 	private int sessionCount = 0;
-	private int score = 10;
+	private int score = 50;
 	private int scoreMax = 999999999;
 	private int sum = 0;
 	private int amount = 0;
@@ -56,7 +56,10 @@ public class Model
 		remains.Clear();
 		int min = score / 5;
 		min = Mathf.Max(2, min);
-		int range = (int) (0.5f * score) - min;
+		float ratio = // 0.5f;
+				0.75f;
+				// 1.0f;
+		int range = (int) (ratio * score) - min;
 		sum = (int) (Deck.Random() * range + min);
 		float problemLinePower = // 0.1f;
 					// 0.125f;
@@ -67,7 +70,7 @@ public class Model
 		int step;
 		int remaining = sum;
 		for (int index = 0; index < problemLineCount - 1; index++) {
-			min = remaining / (index + 2);
+			min = remaining / (index + 4);
 			min = Mathf.Max(1, min);
 			range = (int) (0.5f * remaining - min);
 			step = (int) (Deck.Random() * range + min);
@@ -162,7 +165,8 @@ public class Model
 			timeSincePenalty += deltaTime;
 			if (penaltyInterval <= timeSincePenalty) {
 				timeSincePenalty -= penaltyInterval;
-				score = (int) (score * 0.9f);
+				float timePenaltyRate = 0.95f;
+				score = (int) (score * timePenaltyRate);
 			}
 		}
 		else {
@@ -181,7 +185,7 @@ public class Model
 					+ "\nFOR" + trialMax + "MORE\n"
 					+ "\nSCORE\n" + score;
 			}
-			if (1 == sessionIndex) {
+			else if (1 == sessionIndex) {
 				page = "ADD1TUP\nPRESS\nSPACEKEY\nORENTER"
 					+ "\nFOR" + trialMax + "MORE\nGOODWORK"
 					+ "\nSCORE\n" + score;
@@ -240,7 +244,8 @@ public class Model
 	private void Evaluate()
 	{
 		amount = Toolkit.ParseInt(entry);
-		if (sum == amount) {
+		bool isCheat = scoreMax == amount;
+		if (sum == amount || isCheat) {
 			score += sum;
 			Next();
 		}

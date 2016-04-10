@@ -14,14 +14,18 @@ Example:
 12
 29
 
-You can enter "11", which will make it:
+You can add up (2 + 9) and enter "11". 
+That will remove the 2 and 9 and replace it with 11 more:
 
 10
 31
 
-Then you can enter "41".
+Then you can simply enter "41".
 
 Playtester Jennifer Russ
 
+BitTrip7 font Saru's Freeware Fonts
+
 64x64 pixel game for LowRezJam 2016 (Made on April 9)
+Pixels scaled x 4 (256 x 256 screen resolution)
 https://itch.io/jam/lowrezjam2016
