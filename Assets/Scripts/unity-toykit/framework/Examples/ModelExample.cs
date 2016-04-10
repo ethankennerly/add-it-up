@@ -1,7 +1,11 @@
-using UnityEngine;  // Mathf
-public class ModelExample : Model
+public class ModelExample : IModel
 {
-	public ViewModel view;
+	private ViewModel view;
+
+	public void SetViewModel(ViewModel viewModel)
+	{
+		view = viewModel;
+	}
 
 	public void Start()
 	{
@@ -9,5 +13,9 @@ public class ModelExample : Model
 
 	public void Update(float deltaTime)
 	{
+		if ("" != view.inputString) {
+			Toolkit.Log("ModelExample: input <" 
+				+ view.inputString + ">");
+		}
 	}
 }

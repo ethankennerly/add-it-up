@@ -3,7 +3,7 @@ public class Controller
 	public ViewModel viewModel = new ViewModel();
 	public View view = new View();
 
-	public void SetModel(Model model)
+	public void SetModel(IModel model)
 	{
 		viewModel.model = model;
 	}

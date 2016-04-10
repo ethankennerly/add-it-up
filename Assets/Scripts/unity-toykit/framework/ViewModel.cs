@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class ViewModel
 {
-	public Model model;
+	public IModel model;
 	public bool isVerbose = false;
 	public string main = "Main";
 	public string mouseDown = "";
@@ -32,7 +32,7 @@ public class ViewModel
 
 	public void Start()
 	{
-		model.view = this;
+		model.SetViewModel(this);
 		model.Start();
 	}
 

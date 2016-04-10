@@ -2,16 +2,17 @@
 
 public class MainView : MonoBehaviour
 {
-	public Controller controller = new Controller();
 	// Set your game's model
 	// Extend or copy to make your own MainView class.
+	// See Examples/MainExample
+	public Controller controller = new Controller();
 
-	public void Start ()
+	public virtual void Start()
 	{
 		controller.Start();
 	}
 	
-	public void Update ()
+	public virtual void Update()
 	{
 		controller.Update(Time.deltaTime);
 	}

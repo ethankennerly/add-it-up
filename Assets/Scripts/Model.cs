@@ -1,12 +1,11 @@
 using UnityEngine;  // Mathf
 using System;  // Array
-using System.Collections.Generic;  // List
+using System.Collections.Generic;  // Dictionary, List
 
-public class Model
+public class Model : IModel
 {
-	public ViewModel view;
-	public bool isVerbose = false;
-	private string[] text = new string[]{"Canvas", "Text"};
+	private ViewModel view;
+	private string[] text;
 	private string[] digits = new string[]{
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 	};
@@ -27,12 +26,18 @@ public class Model
 	private int amount = 0;
 	private List<int> remains = new List<int>();
 
+	public void SetViewModel(ViewModel viewModel)
+	{
+		view = viewModel;
+	}
+
 	public void Start()
 	{
 		state = "start";
 		view.graph["Canvas"] = new Dictionary<string, object>(){
 			{"Text", null}
 		};
+		text = new string[]{"Canvas", "Text"};
 	}
 
 	public List<int> GetRemains()
