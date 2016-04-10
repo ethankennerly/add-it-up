@@ -328,11 +328,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 28 - ((27 * winheight(0) + 15) / 31)
+let s:l = 1 - ((0 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-28
+1
 normal! 0
 tabedit \archive\unity\add-it-up\screenplay.txt
 set splitbelow splitright
@@ -670,12 +670,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 76 - ((23 * winheight(0) + 15) / 31)
+let s:l = 248 - ((13 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-76
-normal! 02l
+248
+normal! 029l
 lcd C:\archive\unity\add-it-up\Assets\Scripts
 tabedit C:\archive\unity\add-it-up\Assets\Scripts\Editor\Tests\TestModel.cs
 set splitbelow splitright
