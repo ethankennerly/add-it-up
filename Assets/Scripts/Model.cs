@@ -166,8 +166,9 @@ public class Model
 	{
 		UpdatePenalty(deltaTime, "play" == state);
 		if ("start" == state) {
-			page = "ADD1TUP\n\nPRESS\nENTEROR\nSPACEKEY"
-				+ "\n\nSCORE\n" + score;
+			page = "ADD1TUP\nPRESS\nENTEROR\nSPACEKEY"
+				+ "\nTODO\n" + trialMax
+				+ "\nSCORE\n" + score;
 		}
 		else {
 			page = Format();
